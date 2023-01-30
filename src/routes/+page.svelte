@@ -21,7 +21,6 @@
         await tick();
         birds = new Array(bird0, bird1, bird2, bird3, bird4, bird5, bird6, bird7, bird8); 
         for(let bird of birds) {
-            bird.playIdleAnimation(1);
             bird.doBirdThings();
             await sleep(1000);
         };
@@ -100,7 +99,7 @@
     />
 
     <Threlte.Mesh 
-        geometry={new Three.PlaneGeometry(150, 30)}
+        geometry={new Three.PlaneGeometry(150, 50)}
         material={
             new Three.MeshStandardMaterial({
                 color:'white', 

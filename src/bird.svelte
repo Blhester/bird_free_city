@@ -7,7 +7,7 @@
     export let spawnRange: {xMin: number, xMax: number} = {xMin: -10, xMax: 10};
     export let movementRange: {xMin: number, xMax: number} = {xMin: -75, xMax: 75};
     export let position: {x: number, y: number, z: number} = 
-    {x : randomMinMax(spawnRange.xMin, spawnRange.xMax), y: 0, z: .1};
+    {x : randomMinMax(spawnRange.xMin, spawnRange.xMax), y: 0, z: 1};
 
     export function takeOffToPos(destinationX: number) {
         let originalPos: { x: number, y: number} = { x: position.x, y: position.y };
@@ -25,19 +25,19 @@
 
             if (traveled === 1) {
                 console.log(`Changing animations to TAKE_OFF position : {X: ${position.x}, Y: ${position.y}}`);
-                currentInterval = playAnimations(BirdAnimation.TAKE_OFF, 125);
-            } else if (traveled === 2) {
+                currentInterval = playAnimations(BirdAnimation.TAKE_OFF, 100);
+            } else if (traveled === 3) {
                 clearInterval(currentInterval);
                 console.log(`Changing animations to TAKE_OFF_2 position : {X: ${position.x}, Y: ${position.y}}`);
-                currentInterval = playAnimations(BirdAnimation.TAKE_OFF_2, 125);
+                currentInterval = playAnimations(BirdAnimation.TAKE_OFF_2, 100);
             } else if (traveled === 5) {
                 clearInterval(currentInterval);
                 console.log(`Changing animations to FLY position : {X: ${position.x}, Y: ${position.y}}`)
-                currentInterval = playAnimations(BirdAnimation.FLY, 75);
-            } else if (traveled === travelDistance - 5) {
+                currentInterval = playAnimations(BirdAnimation.FLY, 50);
+            } else if (traveled === travelDistance - 3) {
                 clearInterval(currentInterval);
                 console.log(`Changing animations to TAKE_OFF position : {X: ${position.x}, Y: ${position.y}}`);
-                currentInterval = playAnimations(BirdAnimation.TAKE_OFF_2, 125);
+                currentInterval = playAnimations(BirdAnimation.TAKE_OFF_2, 100);
             }
 
             travelInNegativeDirection ?  position.x-=.25 : position.x+=.25;
@@ -46,7 +46,7 @@
              -(((position.x - originalPos.x) * (position.x - originalPos.x)) - travelDistance * (position.x - originalPos.x))/(travelDistance * 1.5);
             position.y = newYPos < 0 ? 0 : newYPos;
             console.log(`New position { X: ${position.x} Y: ${position.y}}`);
-        }, 25);
+        }, 15);
     }
 
     export function playAnimations(
@@ -111,7 +111,8 @@
     export async function playIdleAnimation(numberOfLoops: number) {
         for(let i = 0; i < numberOfLoops; i++) {
             await playAnimationANumberOfTimes(BirdAnimation.PECK, 3, 50, Math.floor(Math.random() * 4));
-            rotation = { x:0, y:flipRotation(Math.PI), z:0 };
+            let shouldFlip = Math.random() > .5;
+            rotation = shouldFlip ? { x:0, y:Math.PI, z:0 } : { x:0, y:0, z:0 };
             await sleep(2000);
         }
     }
@@ -171,7 +172,7 @@
     export function doBirdThings() {
         setInterval(() => {
             if (position.y === 0) {
-                let shouldFly = Math.random() > .5;
+                let shouldFly = Math.random() > .75;
                 if(shouldFly) {
                     let isNegative = Math.random() > .5;
                     let moveToPosition = Math.floor(Math.random() * (movementRange.xMax - 20)) + 20;
