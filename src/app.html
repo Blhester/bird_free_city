@@ -9,4 +9,40 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
+
+	<script>
+	</script>
+
+	<style>
+		
+
+		/* Enable scrolling on mobile resolutions */
+		@media only screen and (max-width: 767px) {
+			body {
+				overflow-y: scroll;
+			}
+		}
+
+		/* Disable scrolling on desktop resolutions */
+		@media only screen and (min-width: 768px) {
+			body {
+				overflow-y: hidden;
+			}
+		}
+
+
+		body {
+			background: url("/src/assets/gov_building_background.png");
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: inherit;
+			background-position-y: 80%;
+			background-attachment: fixed;
+			overflow-x: hidden;
+		}
+	</style>
 </html>
+
+<!-- radial-gradient(at top left, rgba(255,255,255,1) 0%, rgba(255,255,255,.75) 5%, rgba(28,32,64,.75) 9%, rgba(3,0,47,1) 100%)
+	 radial-gradient(at top left, rgba(254,206,0,1) 0%, rgba(218,97,1,0.6460784997592788) 10%, rgba(40,84,164,1) 25%, rgba(144,184,255,1) 100%)
+-->
